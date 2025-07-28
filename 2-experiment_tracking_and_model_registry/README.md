@@ -7,11 +7,16 @@ We continue building on the environment established in Module 1.
 
 ## 📦 Environment Setup
 
-Install MLflow and required dependencies:
+I have used the same anaconda env created for module `1-Introduction`
 
+activate the env:
 ```bash
-pip install mlflow==2.22.0
-pip install boto3
+conda activate py39
+```
+
+Install MLflow and required dependencies:
+```bash
+pip install -r requirements.txt
 ```
 
 To run MLflow UI locally:
