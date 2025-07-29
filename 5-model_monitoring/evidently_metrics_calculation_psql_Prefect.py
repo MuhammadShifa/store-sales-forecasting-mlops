@@ -106,8 +106,8 @@ def calculate_metrics_postgresql(reference_data, current_data, model):
 
 @flow
 def batch_monitoring_backfill():
-    raw_data_path = "./data/store_sales.csv"
-    ref_data_path = "./data/reference.csv"
+    raw_data_path = "./input_data/store_sales.csv"
+    ref_data_path = "./input_data/reference.csv"
     model_path = "./models/lin_reg.bin"
     
     processed_raw_data = read_raw_csv(raw_data_path)
