@@ -38,18 +38,37 @@ Event streams and consumers are hosted by online services. Some of these service
 
 Streaming can be one-to-many or many-to-many relationship.
 
-*************************************************************************************************************************************************************************
+More details about deployment are available [mlops-zoomcamp2025 - README.md](https://github.com/MuhammadShifa/mlops-zoomcamp2025/blob/main/04-deployment/README.md)
 
-I have performed model deployment as **web service**
+---
+
+#### Model Deployment Sequence
+
+The model deployment has been structured in the following sequence. It is important to follow this exact order, as some modules depend on the previous ones:
+
+1. `web-services`
+2. `web-services-mlflow`
+3. `batch`
+4. `streaming`
+
+> **Note:** Please follow the order strictly. Each module includes a `README.md` file with instructions to help you run it correctly.
 
 ### Folder Structure  
 
-1. web-service
-
+**1. web-service**
+   
 Here, I have used Flask and Docker for making predictions on my dataset. I have put the script in a Flask app and have packaged the app to Docker.
 
-2. web-service-mlflow
 
+**2. web-service-mlflow**
+   
 Here, I have used MLflow to train and log model. The model is deployed to cloud (S3 bucket) and used for prediction in flask app from mlflow.
+
+
+**3. Batch**
+   
+In this module, I perform batch predictions using a trained model from MLflow, wIt loads the trained model from MLflow (S3), applies it to a CSV dataset, and saves the output predictions to a file.
+
+
 
 Each folder has its own README which states how to run the scripts.
