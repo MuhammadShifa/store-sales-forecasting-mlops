@@ -37,4 +37,8 @@ Run the testing script and verify the results in PostgreSQL.
 ```bash
 python test_app.py
 ```
+🖼️ <img src="./../results_images/8-adminer-service-provder.png" alt="ML Workflow" width="600"/>\
+
+🖼️ <img src="./../results_images/9-gr-dash-service-provider.png" alt="ML Workflow" width="600"/>
+
 

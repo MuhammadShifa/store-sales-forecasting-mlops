@@ -75,11 +75,15 @@ pip install -r requirements
     evidently ui
     ```
     and evidently will be accessible through `http://127.0.0.1:8000/`
+    🖼️ <img src="results_images/1-evidently-main.png" alt="ML Workflow" width="600"/>
 
 
 - **Evidently Report:**  
   - Generated **Evidently reports** to assess data quality, drift, and model performance.
   - Created an **Evidently dashboard** for detailed visual analysis.
+
+🖼️ <img src="results_images/2-evidently-dashboard.png" alt="ML Workflow" width="600"/>
+🖼️ <img src="results_images/3-evidently-report.png" alt="ML Workflow" width="600"/>
 
 Everything — from data prepcossing and model training to saving artifacts and producing monitoring outputs — is included in the notebook `baseline_model_for_store_sales_and_evidently_dashboard.ipynb`
 
@@ -102,6 +106,9 @@ Before running this file, we need to run `docker-compose up`,
 - Uses **Prefect** to orchestrate batch monitoring backfill and simulate real-world monitoring.
 - Suitable for validating data and model monitoring dashboards (e.g., Grafana) and alerting systems.
 
+🖼️ <img src="results_images/4-adminer-store-metrics.png" alt="ML Workflow" width="600"/>
+
+
 📊 **Grafana Visualization**
 
 - Connected **Grafana** to the PostgreSQL `store_sales_db` database to display and monitor metrics stored in `store_metrics`.
@@ -112,6 +119,11 @@ Before running this file, we need to run `docker-compose up`,
 - Configured time-series graphs and set thresholds to highlight drift or quality issues visually.
 - Added alert rules to notify when metrics exceed defined limits, enabling proactive issue detection.
 - Access the Grafana dashboard at [http://localhost:3000/](http://localhost:3000/) (default user: `admin`, password: `admin`).
+
+🖼️ <img src="results_images/5-gr-dash.png" alt="ML Workflow" width="600"/>\
+🖼️ <img src="results_images/6-gr-dash-data.png" alt="ML Workflow" width="600"/>\
+🖼️ <img src="results_images/7-gr-dash.png" alt="ML Workflow" width="600"/>
+
 
 ---
 
