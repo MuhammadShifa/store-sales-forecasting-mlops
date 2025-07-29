@@ -15,7 +15,15 @@ we will run all the cells of the notebook `4.1 store-sales-prediction-remote-ec2
 It will train and log model in MLflow and the S3 bucket you created earlier.
 The remote mlfow server should run so we can monitor the experiment.
 
+🖼️ <img src="result_images/1-mlfow_exp.png" alt="ML Workflow" width="600"/>
+
+
+
 We will use the trained model directly from mlflow tracking server in our web-services flask applicaiton code.
+
+
+🖼️ <img src="result_images/2-saved-model.png" alt="ML Workflow" width="600"/>
+
 
 **NOTE :** I have used `pipenv`for this section to create virtual environment. I have provided the Pipfile if you are facing issues with the environment. You can create a virtual environment using Pipfile by running the command : 
 ```
