@@ -37,9 +37,15 @@ prefect start server
 
 This script trains an `XGBoostRegressor` model and logs the results — including metrics, parameters, and model artifacts — to a remote MLflow server previously configured in module-`2-experiment_tracking`.
 
+🖼️ <img src="results_images/1-xgboost-mlflow.png" alt="ML Workflow" width="600"/>
+
+
 #### `train_xgboost_using_prefect_mlflow.py`
 
 This is a modified version of `train_xgboost_mlflow.py` that introduces **Prefect** for orchestrating the machine learning workflow. It defines tasks and flows, enabling visibility and management through the Prefect UI.
+
+🖼️ <img src="results_images/2-prepfect-ui.png" alt="ML Workflow" width="600"/>
+
 
 ---
 
