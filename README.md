@@ -54,19 +54,24 @@ More information on how to create a virtual environment using Pipfile can be fou
 
 ## 🛠 Tools and Technologies Used
 
-| Category                  | Tools Used                                          |
-|---------------------------|-----------------------------------------------------|
-| Cloud                     | AWS (EC2, optionally S3)                            |
-| Experiment Tracking       | MLflow                                              |
-| Workflow Orchestration    | Prefect                                             |
-| Containerization          | Docker, Docker Compose                             |
-| Model Deployment          | Flask, Docker, MLflow                              |
-| Model Monitoring          | Evidently AI, PostgreSQL, Grafana, Prometheus      |
-| Best Practices            | Linting, Testing, Pre-commit, Makefile, CI/CD      |
+| Category                  | Tools Used                                        |
+|---------------------------|---------------------------------------------------|
+| Cloud                     | AWS (EC2, S3, PostgreSQL)                         |
+| Experiment Tracking       | MLflow                                            |
+| Workflow Orchestration    | Prefect                                           |
+| Containerization          | Docker, Docker Compose                            |
+| Model Deployment          | Flask, Docker, MLflow                             |
+| Model Monitoring          | Evidently AI, PostgreSQL, Grafana                 |
+| Best Practices            | Linting, Testing, Pre-commit, Makefile, CI/CD     |
+
+---
 
 ## 🚀 How to Use This Repository
-- clone the repository and follow each section seperate `readme.md` file.
-`git clone repository-link`
+- clone the repository and follow each section/module having a  seperate `readme.md` file.
+```bash
+git clone https://github.com/MuhammadShifa/store-sales-prediction-mlops.git
+```
+
 ---
 
 ## 🔗 Useful Links
