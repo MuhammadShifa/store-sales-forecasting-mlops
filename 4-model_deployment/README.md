@@ -53,22 +53,29 @@ The model deployment has been structured in the following sequence. It is import
 
 > **Note:** Please follow the order strictly. Each module includes a `README.md` file with instructions to help you run it correctly.
 
-### Folder Structure  
+## Folder Structure  
 
-**1. web-service**
+### 1. web-service
    
 Here, I have used Flask and Docker for making predictions on my dataset. I have put the script in a Flask app and have packaged the app to Docker.
 
 
-**2. web-service-mlflow**
+### 2. web-service-mlflow
    
 Here, I have used MLflow to train and log model. The model is deployed to cloud (S3 bucket) and used for prediction in flask app from mlflow.
 
 
-**3. Batch**
+### 3. Batch
    
 In this module, I perform batch predictions using a trained model from MLflow, wIt loads the trained model from MLflow (S3), applies it to a CSV dataset, and saves the output predictions to a file.
 
+### 4. Streaming
+
+In this module, I perform real-time predictions using a streaming setup. The system listens to an AWS Kinesis Data Stream for incoming data records, applies the trained model (fetched from MLflow/S3), and sends predictions to another Kinesis stream. The service is containerized using Docker and designed to run as a Lambda-compatible application.
 
 
-Each folder has its own README which states how to run the scripts.
+---
+
+**Note: >** Each folder has its own `README.md` which states how to run the scripts.
+
+---
