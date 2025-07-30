@@ -1,0 +1,27 @@
+
+import lambda_function
+
+event = {
+    "Records": [
+        {
+            "kinesis": {
+                "kinesisSchemaVersion": "1.0",
+                "partitionKey": "1",
+                "sequenceNumber": "49665655494408468328133797929966048802353963189214904322",
+                "data": "eyJzYWxlc19pbnB1dCI6IHsiZGF0ZSI6ICIyMDIyLTEyLTI1IiwgInN0b3JlIjogMiwgInByb21vIjogMSwgImhvbGlkYXkiOiAwfSwgInNhbGVzX2lkIjogNTEyfQ==",
+                "approximateArrivalTimestamp": 1753871077.078
+            },
+            "eventSource": "aws:kinesis",
+            "eventVersion": "1.0",
+            "eventID": "shardId-000000000000:49665655494408468328133797929966048802353963189214904322",
+            "eventName": "aws:kinesis:record",
+            "invokeIdentityArn": "arn:aws:iam::259959202267:role/lambda-kinesis-role",
+            "awsRegion": "ap-south-1",
+            "eventSourceARN": "arn:aws:kinesis:ap-south-1:259959202267:stream/sales_events"
+        }
+    ]
+}
+
+
+result = lambda_function.lambda_handler(event, None)
+print(result)
