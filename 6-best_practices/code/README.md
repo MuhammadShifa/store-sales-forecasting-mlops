@@ -96,4 +96,10 @@ docker run -it --rm \
 - Docker allows you to package and run your tested code in a consistent environment
 - Keeping code modular and independent improves testability
 
+### 🛠 Tools Used
+
+- `pytest` for unit testing
+- `Docker` for containerization
+- AWS environment variables for Kinesis stream simulation
+
 ---
