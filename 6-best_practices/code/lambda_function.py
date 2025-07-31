@@ -2,9 +2,9 @@ import os
 
 import model
 
-PREDICTIONS_STREAM_NAME = os.getenv('PREDICTIONS_STREAM_NAME', 'sales_predictions')
-RUN_ID = os.getenv('RUN_ID','080e0226c1fc49cc818d3c023625b36d')
-TEST_RUN = os.getenv('TEST_RUN', 'False') == 'True'
+PREDICTIONS_STREAM_NAME = os.getenv("PREDICTIONS_STREAM_NAME", "sales_predictions")
+RUN_ID = os.getenv("RUN_ID", "080e0226c1fc49cc818d3c023625b36d")
+TEST_RUN = os.getenv("TEST_RUN", "False") == "True"
 
 
 model_service = model.init(
@@ -14,6 +14,6 @@ model_service = model.init(
 )
 
 
-def lambda_handler(event, context):
-    
+def lambda_handler(event):
+
     return model_service.lambda_handler(event)

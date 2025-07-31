@@ -1,26 +1,15 @@
-import requests 
+import os
+import json
 
-event = {
-    "Records": [
-        {
-            "kinesis": {
-                "kinesisSchemaVersion": "1.0",
-                "partitionKey": "1",
-                "sequenceNumber": "49665655494408468328133797929966048802353963189214904322",
-                "data": "eyJzYWxlc19pbnB1dCI6IHsiZGF0ZSI6ICIyMDIyLTEyLTI1IiwgInN0b3JlIjogMiwgInByb21vIjogMSwgImhvbGlkYXkiOiAwfSwgInNhbGVzX2lkIjogNTEyfQ==",
-                "approximateArrivalTimestamp": 1753871077.078
-            },
-            "eventSource": "aws:kinesis",
-            "eventVersion": "1.0",
-            "eventID": "shardId-000000000000:49665655494408468328133797929966048802353963189214904322",
-            "eventName": "aws:kinesis:record",
-            "invokeIdentityArn": "arn:aws:iam::259959202267:role/lambda-kinesis-role",
-            "awsRegion": "ap-south-1",
-            "eventSourceARN": "arn:aws:kinesis:ap-south-1:259959202267:stream/sales_events"
-        }
-    ]
-}
+import requests
 
-url = 'http://localhost:8080/2015-03-31/functions/function/invocations'
-response = requests.post(url, json=event)
+REQUEST_TIMEOUT = int(os.getenv("REQUEST_TIMEOUT", "10"))
+
+
+with open("event.json", "rt", encoding="utf-8") as f_in:
+    event = json.load(f_in)
+
+URL = "http://localhost:8080/2015-03-31/functions/function/invocations"
+response = requests.post(URL, json=event, timeout=int(REQUEST_TIMEOUT))
+
 print(response.json())
