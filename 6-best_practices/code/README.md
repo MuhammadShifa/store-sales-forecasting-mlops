@@ -106,7 +106,14 @@ docker run -it --rm \
 
 ## 🚀 Integration Testing for Model Streaming Service
 
-This module focuses on **Integration Testing** of our ML model service. Unlike unit tests that isolate individual components, integration tests ensure that various parts of the system work together as expected — especially when Docker, environment variables, model loading, and external services are involved.
+In addition to unit testing, we implemented **integration testing** to validate the end-to-end functionality of the streaming service inside Docker containers.
+
+Key steps include:
+
+- Downloading the trained model from S3 to load the model locally
+- Mounting the model into the container at runtime
+- Running the service and validating predictions through tests
+- Automating the entire process with a shell script
 
 ---
 
