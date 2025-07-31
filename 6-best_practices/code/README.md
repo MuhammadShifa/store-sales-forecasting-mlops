@@ -5,7 +5,7 @@ This module applies essential software engineering practices to ensure the relia
 We will progressively enhance the system by implementing each best practice step-by-step.
 
 
-## ✅ Tasks Covered
+### ✅ Tasks Covered
 
 - Unit Testing and Dockerizing the Streaming Module
 - Integration Testing
@@ -397,7 +397,6 @@ profile = "black"
 line_length = 88
 ```
 
----
 
 ### Pre-Push Code Checks
 
@@ -430,6 +429,139 @@ echo $?   # Should return 0
 - Run all tools and tests before pushing code
 
 By combining linting, formatting, and testing, we ensure our code is not just working — but clean, readable, and ready for production!
+
 🔗 [Read full guide on linting and formatting →](https://github.com/MuhammadShifa/mlops-zoomcamp2025/blob/main/06-best-practices/code/linting_and_formatting.md)
+
+---
+
+## 🚀 Git Pre-commit Hooks
+
+Git supports **hooks**, which are scripts that run automatically at certain points in the Git workflow. The **pre-commit** hook runs before `git commit` is finalized. These can:
+- Prevent bad code from being committed
+- Auto-fix issues (e.g., formatting)
+- Run tests or linters automatically
+
+We’ll use the [`pre-commit`](https://pre-commit.com/) framework to manage these hooks easily.
+
+In our project, we want to test hooks **only on the `code` folder**, which is not a Git repo by default. So, we’ll **initialize it as a separate Git repo** temporarily:
+
+```bash
+cd 06-best-practices/code/
+git init
+```
+
+Now this folder behaves like a standalone repository.
+
+
+### Setting Up Pre-commit in pipenv
+
+1. **Install `pre-commit`**:
+   ```bash
+   pipenv install --dev pre-commit
+   ```
+
+2. **Generate a starter config**:
+  ```bash
+  pre-commit --help
+  pre-commit sample-config
+  ls -a # in realty it doesn't show the file
+  ```
+
+  Let's generate a config file from sample-config
+   ```bash
+   pre-commit sample-config > .pre-commit-config.yaml
+   ```
+
+3. **Install the Git hooks**:
+   ```bash
+   pre-commit install
+   ```
+
+
+We can now add a `.gitignore` file to exclude files like `__pycache__/`, `.venv/`, etc.
+
+Then, let’s stage and commit everything:
+
+```bash
+git add .
+git commit -m "initial commit"
+```
+
+Before the commit goes through, the configured hooks will run. For example, you may see it clean up trailing whitespaces or flag large files.
+
+You can inspect the changes made by the hooks with:
+
+```bash
+git status
+git diff
+```
+
+Then, commit the new fixes:
+
+```bash
+git add .
+git commit -m "fixes from pre-commit default hooks"
+```
+
+Now everything should pass, and Git logs will reflect both commits:
+
+```bash
+git log
+```
+
+
+### Adding Custom Hooks for Our Workflow
+
+We can configure the pre-commit system to run the following commands automatically before each commit:
+
+```bash
+isort .
+black .
+pylint --recursive=y .
+pytest tests/
+```
+
+**Note:** Edit your `.pre-commit-config.yaml` file to include the following hooks for `isor`, `black` `pylint` and `pytest`. For reference check out the file, I have already added.
+
+
+### Using the Hooks
+
+1. Stage your files:
+   ```bash
+   git add .
+   ```
+
+2. Commit:
+   ```bash
+   git commit -m "Your message"
+   ```
+
+The configured tools (`isort`, `black`, `pylint`, `pytest`) will run **automatically** before the commit is accepted.
+
+If there are any issues (e.g., formatting errors), the commit will fail and you'll see detailed output. Fix the issues, stage the changes again, and commit.
+
+
+### Cleaning Up or Reinitializing
+
+If you ever want to remove the temporary `.git` setup:
+
+```bash
+rm -rf .git
+```
+
+Then reinitialize as needed.
+
+🖼️ <img src="results_images/6-pre-commit-hooks.png" alt="pre-commits-hooks" width="600"/>
+
+
+### Summary
+
+- Git pre-commit hooks help **automate checks** and **enforce code quality**.
+- `pre-commit` makes hook management simple and reproducible.
+- We integrated it with tools like `isort`, `black`, `pylint`, and `pytest`.
+- Now, every commit is guaranteed to pass formatting and testing rules.
+
+🔗 [Read full guide on pre-commit hooks →](https://github.com/MuhammadShifa/mlops-zoomcamp2025/blob/main/06-best-practices/code/pre_commit_hooks.md)
+
 
 ---
