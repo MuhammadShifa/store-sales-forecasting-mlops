@@ -25,7 +25,7 @@ aws --endpoint-url=http://localhost:4566 \
     --shard-count 1
 
 
-pipenv run python test_docker.py 
+pipenv run python test_docker.py
 
 ERROR_CODE=$?
 

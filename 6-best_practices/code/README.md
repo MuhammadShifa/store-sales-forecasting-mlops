@@ -7,12 +7,12 @@ We will progressively enhance the system by implementing each best practice step
 
 ## ✅ Tasks Covered
 
-- Unit Testing and Dockerizing the Streaming Module  
-- Integration Testing  
-- Code Quality: Linting and formatting  
-- Git Pre-commit Hooks  
-- Workflow Automation with Makefiles  
-- Infrastructure as Code (IaC) using Terraform  
+- Unit Testing and Dockerizing the Streaming Module
+- Integration Testing
+- Code Quality: Linting and formatting
+- Git Pre-commit Hooks
+- Workflow Automation with Makefiles
+- Infrastructure as Code (IaC) using Terraform
 - CI/CD Pipeline Setup
 
 > **Note**: The code is committed after completing each task to ensure incremental progress and traceability. Final changes will reflect a clean and production-ready implementation.
@@ -79,7 +79,7 @@ docker run -it --rm \
 ```
 > The `-e` flags set environment variables inside the container.
 
-**Note:** If the exported environment variable are already configured within the code via default value before docker image, then no need to pass it in `docker run` command  
+**Note:** If the exported environment variable are already configured within the code via default value before docker image, then no need to pass it in `docker run` command
 
 test the container
 ```python
@@ -286,7 +286,7 @@ We added a new file `test_kinesis.py` to automate the above steps.
 
 **Integration Testing (Model + Kinesis + Container)**
    Run from project root:
-   
+
    ```bash
    ./integration-test/run.sh
    ```
@@ -296,7 +296,7 @@ We added a new file `test_kinesis.py` to automate the above steps.
 
 
 
-All components — model, environment variables, container, and Kinesis — are now **fully tested locally** with automation using LocalStack. 
+All components — model, environment variables, container, and Kinesis — are now **fully tested locally** with automation using LocalStack.
 
 
 ---
@@ -433,5 +433,3 @@ By combining linting, formatting, and testing, we ensure our code is not just wo
 🔗 [Read full guide on linting and formatting →](https://github.com/MuhammadShifa/mlops-zoomcamp2025/blob/main/06-best-practices/code/linting_and_formatting.md)
 
 ---
-
-
