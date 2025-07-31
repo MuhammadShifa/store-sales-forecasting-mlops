@@ -9,7 +9,7 @@ We will progressively enhance the system by implementing each best practice step
 
 - Unit Testing and Dockerizing the Streaming Module  
 - Integration Testing  
-- Code Linting and Auto-formatting  
+- Code Quality: Linting and formatting  
 - Git Pre-commit Hooks  
 - Workflow Automation with Makefiles  
 - Infrastructure as Code (IaC) using Terraform  
@@ -296,7 +296,142 @@ We added a new file `test_kinesis.py` to automate the above steps.
 
 
 
-All components — model, environment variables, container, and Kinesis — are now **fully tested locally** with automation using LocalStack. 🚀
+All components — model, environment variables, container, and Kinesis — are now **fully tested locally** with automation using LocalStack. 
 
 
 ---
+
+## 🚀 Code Quality: Linting and Formatting
+
+To maintain clean, consistent, and production-ready Python code, here I have adopted best practices around **linting** and **formatting**.
+
+- **Linting** helps catch common errors and enforce code style by analyzing code statically.
+- **Formatting** tools automatically structure code to follow standardized conventions like PEP8.
+
+We used tools like `pylint`, `black`, and `isort`, and centralized configuration in `pyproject.toml` for easier project management.
+
+
+### `pylint`
+
+We'll use `pylint` for linting. It not only checks for PEP8 compliance but also detects deeper issues like:
+- Use of global variables
+- Missing docstrings
+- Unused arguments or imports
+
+#### Installation & Setup
+
+```bash
+pipenv install --dev pylint
+pipenv shell
+```
+
+Run `pylint` on a single file:
+```bash
+pylint model.py
+```
+
+Run on the entire project recursively:
+```bash
+pylint --recursive=y .
+```
+
+This command will show warnings such as missing docstrings, extra whitespaces, or unused variables.
+
+
+### Code Formatting with `black`
+
+**Black** is an uncompromising Python code formatter. It formats code automatically to follow PEP8. Unlike linters, it changes the code directly.
+
+#### Install and Run
+
+```bash
+pipenv install --dev black
+
+black --diff . | less                 # Show diff only
+black -S --diff . | less              # Keep single quotes
+black .                               # Apply formatting to all files
+```
+
+Use the `-S` or `--skip-string-normalization` flag if you want to avoid auto-converting quotes to double quotes.
+
+
+### Import Statements Sorting with `isort`
+
+**isort** organizes imports alphabetically and by group. This keeps imports tidy and consistent.
+
+#### Install and Run
+
+```bash
+pipenv install --dev isort
+
+isort --diff . | less                 # Show what changes would be made
+isort .                               # Apply sorting
+```
+
+### Central Config with `pyproject.toml`
+
+Instead of using multiple config files, modern Python tools prefer a central config file: `pyproject.toml`.
+
+Example for `pylint`, `black`, and `isort`:
+
+```toml
+[tool.pylint]
+[tool.pylint.message_control]
+disable = [
+    "missing-function-docstring",
+    "missing-class-docstring",
+    "missing-final-newline",
+    "missing-module-docstring",
+    "too-few-public-methods"
+]
+
+[tool.black]
+line-length = 88
+target-version = ["py39"]
+skip-string-normalization = true
+
+[tool.isort]
+multi_line_output = 3
+length_sort = true
+profile = "black"
+line_length = 88
+```
+
+---
+
+### Pre-Push Code Checks
+
+Before pushing code, make sure:
+1. All linter and formatter checks pass
+2. All tests pass
+3. Exit code is zero
+
+Run:
+
+```bash
+isort .
+black .
+pylint --recursive=y .
+pytest tests/
+echo $?   # Should return 0
+```
+
+
+🖼️ <img src="results_images/4-code-quality.png" alt="integration test" width="600"/>
+
+**Note:** Make sure `echo $? ` should run after every command, because it only return error for previous command. If `echo $?` returns a non-zero code, Git hooks or CI might block the push.
+
+#### ✅ Summary
+
+- `pylint` checks code for issues and style problems
+- `black` formats code automatically
+- `isort` sorts import statements
+- `pyproject.toml` can be used to configure all tools in one place
+- Run all tools and tests before pushing code
+
+By combining linting, formatting, and testing, we ensure our code is not just working — but clean, readable, and ready for production!
+🔗 [Read full guide on linting and formatting →](https://github.com/MuhammadShifa/mlops-zoomcamp2025/blob/main/06-best-practices/code/linting_and_formatting.md)
+
+---
+
+
