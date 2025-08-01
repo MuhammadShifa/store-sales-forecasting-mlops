@@ -208,20 +208,20 @@ var.source_stream_name
   Enter a value: sales-events
 ```
 
----
-
 #### Apply the Plan
 ```bash
 terraform apply 
 ```
 
+🖼️ <img src="../results_images/8aterranform_appy.png" alt=" terraform apply" width="600"/>
+
+
 This will also required the input stream_name and output stream name.
 Later on, we will pas these values from `vars` folder.
 
-
 After approval, the Kinesis stream `sales-events-stg` and `sales-predictions-stg` will be created.
 
-
+🖼️ <img src="../results_images/8b-terranform-stream-created.png" alt="terraform stream" width="600"/>
 
 #### Destroy the resource
 ```bash
