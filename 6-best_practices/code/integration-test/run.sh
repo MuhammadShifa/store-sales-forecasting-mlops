@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
-cd "$(dirname "$0")"
+set -e
+
+if [[ -z "${GITHUB_ACTIONS}" ]]; then
+  cd "$(dirname "$0")"
+fi
 
 
 if [ "${LOCAL_IMAGE_NAME}" == "" ]; then 
