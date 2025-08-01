@@ -229,4 +229,56 @@ terraform destroy
 ```
 This command will destroy/delete the created resource
 
----
+
+### Step 5: Add S3 Module for Model Storage
+
+##### S3 Bucket Module: Detailed Explanation (`modules/s3/main.tf`)
+
+This module provisions an **Amazon S3 bucket**, which is used for storing ML model artifacts required by the Lambda function during inference.
+
+```hcl
+resource "aws_s3_bucket" "s3_bucket" {
+  bucket         = var.bucket_name
+  acl            = "private"
+  force_destroy  = true
+}
+
+output "name" {
+  value = aws_s3_bucket.s3_bucket.bucket
+}
+```
+
+
+#### Output Definition
+
+```hcl
+output "name" {
+  value = aws_s3_bucket.s3_bucket.bucket
+}
+```
+
+This output returns the bucket name, which is passed to other modules (such as Lambda) to retrieve the model file during inference.
+
+By modularizing the S3 configuration, this setup supports multi-environment deployments (e.g., staging, production) with isolated and easily reproducible storage.
+
+### Managing Environment Configurations with `.tfvars`
+
+As the number of variables grows, it becomes hard to pass them all on the CLI.  
+To solve this, we use **`.tfvars` files** for different environments (e.g., staging, production).
+
+Folder structure:
+```
+vars/
+├── stg.tfvars
+├── prod.tfvars
+```
+
+We can run Terraform with config varibles file:
+
+```bash
+terraform plan -var-file=vars/stg.tfvars
+terraform apply -var-file=vars/stg.tfvars
+```
+
+Terraform will skip any unchanged resources, only applying new updates.
+
