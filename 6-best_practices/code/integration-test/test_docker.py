@@ -12,7 +12,7 @@ with open("event.json", "rt", encoding="utf-8") as f_in:
 
 
 URL = "http://localhost:8080/2015-03-31/functions/function/invocations"
-actual_response = requests.post(URL, json=event, timeout=int(REQUEST_TIMEOUT))
+actual_response = requests.post(URL, json=event, timeout=int(REQUEST_TIMEOUT)).json()
 
 print("actual response: ")
 
