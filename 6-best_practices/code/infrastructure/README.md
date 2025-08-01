@@ -526,8 +526,12 @@ aws kinesis put-record \
   --stream-name ${KINESIS_STREAM_INPUT} \
   --partition-key 1 \
   --data fileb://<(echo -n '{"sales_input": {"date": "2022-12-25", "store": 2, "promo": 1, "holiday": 0}, "sales_id": 512}')
-```  
+```
+🖼️ <img src="../results_images/11-teraform-final-demp.png" alt="terraform final demo" width="600"/>
+
+
 Monitor the log in CLoudWatch 🚀🚀🚀
+
 ---
 
 <details>
