@@ -470,3 +470,89 @@ With the Lambda function deployed, your real-time ML pipeline is now able to:
 🎉 WE now have the foundation of an end-to-end MLOps pipeline deployed using Terraform!
 
 ---
+
+## 🚀 Terraform Final Demo and Closing Notes
+
+This demo illustrates the deployment of a complete real-time ML inference pipeline using **Terraform** on AWS - as shown in our initial architecture diagram.
+
+## Initial Architecture Overview
+
+We’ve deployed the entire machine learning inference pipeline using Terraform. Below is a high-level description of the system:
+
+- **Kinesis Input Stream**: Accepts incoming ride events.
+- **AWS Lambda Function**: Triggered by events, loads the model, and performs predictions.
+- **S3 Buckets**: bucket for saving the state of staging.
+- **Docker Image**: Contains model inference logic.
+- **Kinesis Output Stream**: Receives prediction results.
+- **CloudWatch Logs**: For debugging and monitoring the pipeline.
+
+---
+
+### Before Running: Need Configure Environment
+
+We need to set up environment variables so the Lambda function can access the right model version.
+
+In this demo, we **mock** the process of pulling a `RUN_ID` from MLflow by simply extracting the latest S3 partition (**Not recommended for production**).
+
+Created a script called `deploy_manual.sh` in the `scripts/` directory:
+
+```bash
+# Get the latest RUN_ID from the last modified partition in S3
+# NOT RECOMMENDED FOR PRODUCTION
+export RUN_ID=$(aws s3api list-objects-v2 --bucket ${MODEL_BUCKET_DEV} \
+  --query 'sort_by(Contents, &LastModified)[-1].Key' --output=text | cut -f2 -d/)
+
+# Sync DEV model artifacts into the PROD S3 bucket
+aws s3 sync s3://${MODEL_BUCKET_DEV} s3://${MODEL_BUCKET_PROD}
+
+# Set environment variables for the Lambda function
+variables="{PREDICTIONS_STREAM_NAME=${PREDICTIONS_STREAM_NAME}, MODEL_BUCKET=${MODEL_BUCKET_PROD}, RUN_ID=${RUN_ID}}"
+
+aws lambda update-function-configuration \
+  --function-name ${LAMBDA_FUNCTION} \
+  --environment "Variables=${variables}"
+```
+
+run the full code from file:
+```bash
+./scripts/deploy_manual.sh
+```
+
+Test the input-stream
+```bash
+export KINESIS_STREAM_INPUT="stg_sales_events-store-sales-predictions"
+
+aws kinesis put-record \
+  --stream-name ${KINESIS_STREAM_INPUT} \
+  --partition-key 1 \
+  --data fileb://<(echo -n '{"sales_input": {"date": "2022-12-25", "store": 2, "promo": 1, "holiday": 0}, "sales_id": 512}')
+```  
+Monitor the log in CLoudWatch 🚀🚀🚀
+---
+
+<details>
+<summary>🧠 Core Concepts & Terminology</summary>
+
+| Concept                 | Description                                                                 |
+|------------------------|-----------------------------------------------------------------------------|
+| Infrastructure as Code | Manage and provision cloud resources through version-controlled code        |
+| Terraform              | Tool to define, deploy, and manage infrastructure across cloud providers     |
+| Backend                | Remote storage for Terraform state; ensures team collaboration (S3 used)     |
+| Provider               | Specifies the cloud environment (AWS in this case) and credentials setup     |
+| Module                 | Logical, reusable blocks of Terraform config (e.g., `kinesis`, `s3`, `lambda`)|
+| Resource               | Individual AWS service components like streams, buckets, or functions        |
+| Kinesis Streams        | Used for real-time event ingestion and publishing (input/output streams)     |
+| S3 Buckets             | Store ML model artifacts; integrated with Lambda for inference               |
+| ECR                    | Container registry to host Docker images used by Lambda                      |
+| Lambda Function        | Executes model inference on incoming stream events (Docker image-based)      |
+| Environment Variables  | Pass config values (like bucket names, stream names) into Lambda             |
+| IAM Role               | Grants Lambda permissions to access Kinesis, S3, CloudWatch, etc.            |
+| IAM Policy             | Set of fine-grained rules attached to roles to authorize resource access      |
+| Null Resource          | Used to trigger Docker image build/push based on local file changes          |
+| Data Source            | Terraform `data` block to fetch dynamic info like latest ECR image URI       |
+| CI/CD Integration      | Simulated inside Terraform to mimic image availability for Lambda deployment |
+| Mono Repository Style  | All infra and service code maintained in a single repository (vs split repos)|
+
+</details>
+---
+
