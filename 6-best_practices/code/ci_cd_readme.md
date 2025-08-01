@@ -390,3 +390,15 @@ Together, these pipelines ensure:
 
 ---
 
+**Screenshots: **
+
+
+🖼️ <img src="results_images/12a-prod-streams-created.png" alt="kinesis prod stream" width="600"/>
+
+🖼️ <img src="results_images/12b-prod-s3-created.png" alt="prod S3 bucket" width="600"/>
+
+🖼️ <img src="results_images/12c-prod-lambda.png" alt="prod lambda function" width="600"/>
+
+🖼️ <img src="results_images/12d-ecr-repo.png" alt="prod ecr repository" width="600"/>
+
+
