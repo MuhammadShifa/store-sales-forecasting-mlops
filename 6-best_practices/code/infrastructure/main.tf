@@ -35,3 +35,10 @@ module "output_kinesis_stream" {
   stream_name = "${var.output_stream_name}-${var.project_id}"
   tags = var.project_id
 }
+
+
+# model bucket
+module "s3_bucket" {
+  source = "./modules/s3"
+  bucket_name = "${var.model_bucket}-${var.project_id}"
+}
