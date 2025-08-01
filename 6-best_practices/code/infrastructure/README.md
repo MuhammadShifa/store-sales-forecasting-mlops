@@ -374,3 +374,99 @@ In `infrastructure/main.tf`, the ECR module is configured as we previously confi
 🎉 That completes the ECR setup. With this in place, you're ready to connect Lambda and build the full pipeline!
 
 
+### Step 7: Deploy the Lambda Function (Model Inference Service)
+
+The Lambda function is the **core inference engine** of this MLOps pipeline. It receives incoming events from the **Kinesis input stream**, loads the ML model from **S3**, and publishes predictions to the **output stream**.
+
+
+#### Key Lambda Concepts
+
+When provisioning a Lambda function using Terraform, a few key inputs are required:
+
+| Field              | Purpose                                                                 |
+|-------------------|-------------------------------------------------------------------------|
+| `function_name`    | The unique name of your Lambda function                                |
+| `package_type`     | Set to `"Image"` for container-based Lambda functions                  |
+| `image_uri`        | The full URI of the Docker image stored in **ECR**                     |
+| `role`             | An **IAM role** that allows Lambda to access Kinesis, S3, Logs, etc.   |
+| `timeout`          | The max execution time in seconds (default is 3 sec, we use 180 sec)   |
+| `environment`      | Optional environment variables (e.g., stream name, S3 bucket name)     |
+
+
+#### Lambda Resource
+
+**`modules/lambda/main.tf`**
+```hcl
+resource "aws_lambda_function" "kinesis_lambda" {
+  function_name = var.lambda_function_name
+  image_uri     = var.image_uri
+  package_type  = "Image"
+  role          = aws_iam_role.iam_lambda.arn
+
+  tracing_config {
+    mode = "Active"
+  }
+
+  environment {
+    variables = {
+      PREDICTIONS_STREAM_NAME = var.output_stream_name
+      MODEL_BUCKET            = var.model_bucket
+    }
+  }
+
+  timeout = 180
+}
+```
+
+#### IAM Role for Lambda
+
+Lambda interacts with multiple AWS services (Kinesis, ECR, S3, and CloudWatch).  
+To allow this securely, we need to define an **IAM role** and attached the necessary permissions via custom IAM policies.
+
+To keep this organized, the role and policies are defined in a separate file:  
+➡️ See [IAM_README.md](./iam_readme.md) for a full breakdown of the `iam.tf` file.
+
+**Highlights:**
+
+- Permission to **read/write to Kinesis** (input + output)
+- Permission to **read from S3** (model bucket)
+- Permission to **pull Docker image** from ECR
+- Permission to **log to CloudWatch Logs**
+
+#### Integration in infrastructure `main.tf`
+
+In `infrastructure/main.tf`, the lambda module is configured like this:
+
+```hcl
+module "lambda_function" {
+  source = "./modules/lambda"
+  image_uri = module.ecr_image.image_uri
+  lambda_function_name = "${var.lambda_function_name}_${var.project_id}"
+  model_bucket = module.s3_bucket.name
+  output_stream_name = "${var.output_stream_name}-${var.project_id}"
+  output_stream_arn = module.output_kinesis_stream.stream_arn
+  source_stream_name = "${var.source_stream_name}-${var.project_id}"
+  source_stream_arn = module.source_kinesis_stream.stream_arn
+}
+```
+This ties everything together:
+
+- Lambda uses the Docker image URI output by the ECR module
+- It reads the model from the S3 module
+- It sends results to the output Kinesis stream
+
+🖼️ <img src="../results_images/10-aws-lambda-created.png" alt="AWS Lambda screenshot" width="600"/>
+
+
+#### Lambda Is Ready
+
+With the Lambda function deployed, your real-time ML pipeline is now able to:
+
+1. **Receive events** from the input stream  
+2. **Run predictions** using a pre-trained model stored in S3  
+3. **Publish output** to a second Kinesis stream  
+4. **Log execution details** in CloudWatch  
+
+🎉 WE now have the foundation of an end-to-end MLOps pipeline deployed using Terraform!
+
+---
