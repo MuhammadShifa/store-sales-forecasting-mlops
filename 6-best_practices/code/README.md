@@ -563,5 +563,166 @@ Then reinitialize as needed.
 
 🔗 [Read full guide on pre-commit hooks →](https://github.com/MuhammadShifa/mlops-zoomcamp2025/blob/main/06-best-practices/code/pre_commit_hooks.md)
 
+---
+
+## 🚀 Makefiles and make
+To automate repetitive tasks like testing, linting, building Docker images, running integration tests, and publishing, we use **Makefiles** with the `make` tool.
+In the previous module we have perfored unit and integration testing, code linting and formating and and pre-commit hooks, Now it’s time to automate all these tasks with one powerful tool: **`make` and Makefiles**.
+We define our **targets** (e.g., `test`, `build`, `run`), and then simply call:
+
+```bash
+make test
+make build
+make run
+```
+> Think of it like your project’s mini-orchestrator
+
+### Installing `make`
+
+#### macOS
+Already pre-installed (via Xcode Command Line Tools).
+
+#### Ubuntu/Linux
+```bash
+sudo apt update && sudo apt install build-essential
+```
+#### Windows (via Chocolatey)
+```bash
+choco install make
+```
+Restart your terminal after installation.
+
+### First Makefile Example
+
+Create a file named `Makefile` (no extension!) in your project directory — for example, inside `06-best-practices/code`.
+
+### Basic Example for testing `make` and `Makefile`
+
+```makefile
+run:
+	echo 123
+```
+Run it with:
+```bash
+make run
+```
+**Output:**
+```
+echo 123
+123
+```
+> `make` found the `run` target and executed the command inside.
+
+
+### Connecting Targets (Dependencies)
+
+Targets can **depend on other targets**. For example:
+
+```makefile
+test:
+	echo "Running tests command"
+
+run: test
+	echo "Run command is dependent on test first"
+```
+
+When you run:
+
+```bash
+make run
+```
+
+Output:
+```
+echo "Running tests command"
+Running tests command
+echo "Run command is dependent on test first"
+Run command is dependent on test first
+```
+
+`run` depends on `test`, so it runs `test` first, we can add multiple dependencies.
+
+
+### Project Automation
+
+Let’s write a Makefile that automates testing, linting, Docker builds, integration tests, and publishing.
+
+```makefile
+LOCAL_TAG := $(shell date +"%Y-%m-%d-%H-%M")
+LOCAL_IMAGE_NAME := stream-model-duration:$(LOCAL_TAG)
+
+# Unit tests
+test:
+	pytest tests/
+
+# Linting and formatting
+quality_checks:
+	isort .
+	black .
+	pylint --recursive=y .
+
+# Build Docker image (depends on tests and code quality)
+build: quality_checks test
+	docker build -t $(LOCAL_IMAGE_NAME) .
+
+# Integration tests (depends on build)
+integration_test: build
+	LOCAL_IMAGE_NAME=$(LOCAL_IMAGE_NAME) bash integration-test/run.sh
+
+# Publish Docker image (depends on everything)
+publish: build integration_test
+	LOCAL_IMAGE_NAME=$(LOCAL_IMAGE_NAME) bash scripts/publish.sh
+
+# ⚙Project setup
+setup:
+	pipenv install --dev
+	pre-commit install
+```
+#### How to run the above `Makefile`
+
+##### Install dependencies:
+```bash
+make setup
+```
+
+##### Run tests:
+```bash
+make test
+```
+
+##### Format and lint:
+```bash
+make quality_checks
+```
+
+##### Build Docker image:
+```bash
+make build
+```
+
+##### Run integration tests:
+```bash
+make integration_test
+```
+
+##### Publish to container registry:
+```bash
+make publish
+```
+
+🖼️ <img src="results_images/7a-make-commad.png" alt="make publish screenshot" width="600"/>
+
+🖼️ <img src="results_images/7b-makepublish.png" alt="make publish" width="600"/>
+
+
+### Important Notes
+
+- All commands under a target **must be indented with a TAB**, not spaces.
+- The default file is `Makefile` (case-sensitive).
+- Targets run **in order of dependency**.
+- You can create **shortcuts for any complex logic** using Make.
+
+Happy Automating! 🚀
 
 ---
+
