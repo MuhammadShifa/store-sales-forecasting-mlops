@@ -1,40 +1,66 @@
-# MLOps Zoomcamp Project - Store Sales Prediction
+# MLOps Zoomcamp Project - Store Sales Forecasting
 
 Welcome to the **MLOps Zoomcamp 2025 Cohort Project**!  
-This repository showcases how modern MLOps practices are applied to a real-world store sales prediction use case.
+This repository showcases how modern MLOps practices are applied to a real-world store sales forecasting use case.
+
+## 🎯 Problem Description
+
+**Retail store sales forecasting** is a vital business challenge for retailers aiming to optimize inventory, staffing, and promotional strategies. Accurate sales predictions empower companies to make data-driven decisions that directly impact profitability and operational efficiency. This project addresses:
+
+- **Business Impact**: Under/overstocking, misallocated staff, and poor promotions hurt business outcomes.
+- **Forecasting Challenge**: Incorporating seasonality, holidays, and promotions into a daily-level prediction.
+- **Production Readiness**: Building a solution that can be deployed, monitored, and retrained automatically.
+- **Scalable ML Lifecycle**: Ensuring automation, observability, and reproducibility across development and deployment.
+
+## 🚀 Project Objective
+
+The objective of this project is to build a robust, end-to-end, and production-grade MLOps pipeline that forecast **daily store sales** using historical and contextual data. It includes all phases of the ML lifecycle, from experimentation to deployment and monitoring, using the best MLOps practices.
+
+### 🧩 Key Features
+- ✅ **Automated Data Processing**: Feature engineering, cleaning, and validation.
+- ✅ **Model Training & Optimization**: XGBoost, Linear Regression, and RandomForest with hyperparameter tuning.
+- ✅ **Experiment Tracking**: MLflow for logging parameters, metrics, and artifacts.
+- ✅ **Pipeline Orchestration**: Prefect for workflow management across stages.
+- ✅ **Model Deployment**: Flask-based API served via Docker containers, Batch Scoring and Streaming Deployment.
+- ✅ **Monitoring & Alerting**: Evidently AI + PostgreSQL + Grafana for production drift and performance monitoring.
+- ✅ **Code Quality**: Pylint, isort, black and github pre-commit hooks
+- ✅ **Unit & Integration Tests**: Unit test for core components and integration test for streaming deployment pipeline.
+- ✅ **Code Quality**: Enforced via `pylint`, `black`, `isort`, and pre-commit hooks.
+- ✅ **Infrastructure as Code**: Terraform-based EC2 setup for reproducibility.
+- ✅ **CI/CD Automation**: GitHub Actions for continuous integration and delivery.
 
 
-## Objective
-The objective of this project is to build a robust, end-to-end, and production-grade MLOps pipeline that predicts **daily store sales** using historical data. By leveraging the [Store Sales Dataset](https://www.kaggle.com/datasets/abhishekjaiswal4896/store-sales-dataset/data), we aim to:
+## ❗ Problem Statement
 
-- Develop and deploy multiple machine learning models (XGBoost, RandomForest, Linear Regression).
-- Enable a fully automated pipeline using modern MLOps tools and techniques.
-- Ensure scalability, reliability, and monitoring across all phases of the ML lifecycle.
+The dataset provides **daily sales data** for multiple retail stores, along with contextual features such as promotions and dates. While no explicit holiday data is included, we **engineered temporal features** from the `date` column, including `year`, `month`, `day`, `dayofweek`, and `is_weekend`.
 
-This pipeline integrates:
-- **MLflow** for experiment tracking and model registry,
-- **Prefect** for orchestration,
-- **Flask + Docker** for model serving,
-- **Evidently + PostgreSQL + Grafana** for monitoring and observability,
-- **CI/CD** and production best practices.
+Our goal:
+- 📈 **Forecast daily store sales** using historical sales trends and contextual features.
+- ⚙️ Build a production-ready MLOps pipeline with support for **web service deployment**, **batch scoring**, and **streaming predictions**.
+- 🚀 Ensure end‑to‑end automation of **data preprocessing, model scoring**, and **monitoring**, with full reproducibility using infrastructure-as-code and CI/CD workflows.
 
+> Dataset Source: [Kaggle – Store Sales Dataset](https://www.kaggle.com/datasets/abhishekjaiswal4896/store-sales-dataset/data)
 
-## Problem Statements
-The dataset provides historical daily sales information of retail stores, including factors such as promotions, holidays, and date-specific trends. The key problem we aim to solve:
+## 🛠 Tools and Technologies Used
 
-- **Forecast daily sales** for retail stores based on historical and contextual data.
-- Build a system that supports **retraining, serving, and monitoring** of models in production.
-- Provide the business with tools to **optimize inventory, staffing, and promotions** using predictions.
-- Ensure **data pipelines, batch scoring, monitoring**, and **logging** are fully automated and reproducible.
+| Category                  | Tools Used                                        |
+|---------------------------|---------------------------------------------------|
+| Cloud                     | AWS (EC2, S3, Kinesis,lambda function, PostgreSQL)|
+| Experiment Tracking       | MLflow                                            |
+| Workflow Orchestration    | Prefect                                           |
+| Containerization          | Docker, Docker Compose                            |
+| Model Deployment          | Flask, Docker, MLflow, AWS and localstack        |
+| Model Monitoring          | Evidently AI, PostgreSQL, Grafana                 |
+| Best Practices            | Linting, Testing, Pre-commit, Makefile, CI/CD     |
 
-> Dataset Source: [Kaggle - Store Sales Dataset](https://www.kaggle.com/datasets/abhishekjaiswal4896/store-sales-dataset/data)
+---
 
 
 ## Project Structure and Set-up Environment Configuration
-The project is implemented on **Ubuntu 22.04** using an **Anaconda environment** (Python 3.9). Each module of the Zoomcamp course is structured in its own directory and includes a dedicated `README.md` for instructions.
+The project is implemented on **Ubuntu 22.04** using an **Anaconda environment** (Python 3.9). Each module of the Zoomcamp course is structured in its own directory and includes a dedicated `README.md` for details instructions. The `requirement.txt` and other information related to python environment are provided within each module `README.md`.
 
 > Note: Some steps assume AWS EC2 usage as demonstrated in [this video](https://www.youtube.com/watch?v=IXSiYkP23zo&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK&index=4). Using other platforms may require modifications.
-> The complete environment configuration file is available for Github Codespaces, Anaconda, EC2, Docker etc in [env_configuration.md](./env_configuration.md)
+> Additionaly, a seperate complete environment configuration file is available for Github Codespaces, Anaconda, EC2, Docker etc in [env_configuration.md](./env_configuration.md)
 
 ### Module Directories:
 
@@ -49,22 +75,8 @@ Each folder includes:
 - Source code
 - Notebooks
 - `requirements.txt`, `Pipfile` and environment setup instructions in `README.md`
+- A detailed `README.md` within each module contained code parts explaination, screenshoots etc. as well. 
 
-More information on how to create a virtual environment using Pipfile can be found [here](https://stackoverflow.com/questions/52171593/how-to-install-dependencies-from-a-copied-pipfile-inside-a-virtual-environment)
-
-## 🛠 Tools and Technologies Used
-
-| Category                  | Tools Used                                        |
-|---------------------------|---------------------------------------------------|
-| Cloud                     | AWS (EC2, S3, PostgreSQL)                         |
-| Experiment Tracking       | MLflow                                            |
-| Workflow Orchestration    | Prefect                                           |
-| Containerization          | Docker, Docker Compose                            |
-| Model Deployment          | Flask, Docker, MLflow                             |
-| Model Monitoring          | Evidently AI, PostgreSQL, Grafana                 |
-| Best Practices            | Linting, Testing, Pre-commit, Makefile, CI/CD     |
-
----
 
 ## 🚀 How to Use This Repository
 - clone the repository and follow each section/module having a  seperate `readme.md` file.
@@ -83,5 +95,5 @@ git clone https://github.com/MuhammadShifa/store-sales-prediction-mlops.git
 ---
 
 Feel free to explore and contribute!  
-Happy learning with MLOps Zoomcamp 2025! 🎉
+Happy learning with MLOps Zoomcamp! 🎉
 
