@@ -1,4 +1,4 @@
-# 🛒 Store Sales Prediction – Introduction Module
+# 🛒 Store Sales Forecasting – Introduction Module
 
 This is the first module of the **Store Sales Prediction** MLOps project. It sets up the development environment, prepares the dataset, performs exploratory data analysis and feature engineering, and trains baseline regression models to predict daily store sales.
 
