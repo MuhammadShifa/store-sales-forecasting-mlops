@@ -1,7 +1,7 @@
 ## 🚀 CI/CD Pipeline for Store Sales Prediction - MOPs Project
 
 
-This section explains the **CI/CD pipeline** setup for our MLOps Zoomcamp project "Store-Sales-Prediction"(06-best_practices module), using **GitHub Actions** to automate testing, infrastructure provisioning, Docker image creation, and deployment.
+This section explains the **CI/CD pipeline** setup for our MLOps Zoomcamp project "Store-Sales-Forecasting"(06-best_practices module), using **GitHub Actions** to automate testing, infrastructure provisioning, Docker image creation, and deployment.
 
 
 ### What is CI/CD?
@@ -87,8 +87,8 @@ Workflows must be defined inside the `.github/workflows/` directory at the root 
 
 In our project:
 
-- [`ci-tests.yml`](https://github.com/MuhammadShifa/store-sales-prediction-mlops/blob/main/.github/workflows/ci-tests.yml) → Continuous Integration (CI) workflow
-- [`cd-deploy.yml`](https://github.com/MuhammadShifa/store-sales-prediction-mlops/blob/main/.github/workflows/cd-deploy.yml) → Continuous Deployment (CD) workflow
+- [`ci-tests.yml`](https://github.com/MuhammadShifa/store-sales-forecasting-mlops/blob/main/.github/workflows/ci-tests.yml) → Continuous Integration (CI) workflow
+- [`cd-deploy.yml`](https://github.com/MuhammadShifa/store-sales-forecasting-mlops/blob/main/.github/workflows/cd-deploy.yml) → Continuous Deployment (CD) workflow
 
 ---
 
