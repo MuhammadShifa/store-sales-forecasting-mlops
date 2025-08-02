@@ -12,6 +12,8 @@ This repository showcases how modern MLOps practices are applied to a real-world
 - **Production Readiness**: Building a solution that can be deployed, monitored, and retrained automatically.
 - **Scalable ML Lifecycle**: Ensuring automation, observability, and reproducibility across development and deployment.
 
+---
+
 ## 🚀 Project Objective
 
 The objective of this project is to build a robust, end-to-end, and production-grade MLOps pipeline that forecast **daily store sales** using historical and contextual data. It includes all phases of the ML lifecycle, from experimentation to deployment and monitoring, using the best MLOps practices.
@@ -29,6 +31,7 @@ The objective of this project is to build a robust, end-to-end, and production-g
 - ✅ **Infrastructure as Code**: Terraform-based EC2 setup for reproducibility.
 - ✅ **CI/CD Automation**: GitHub Actions for continuous integration and delivery.
 
+---
 
 ## ❗ Problem Statement
 
@@ -40,6 +43,8 @@ Our goal:
 - 🚀 Ensure end‑to‑end automation of **data preprocessing, model scoring**, and **monitoring**, with full reproducibility using infrastructure-as-code and CI/CD workflows.
 
 > Dataset Source: [Kaggle – Store Sales Dataset](https://www.kaggle.com/datasets/abhishekjaiswal4896/store-sales-dataset/data)
+
+---
 
 ## 🛠 Tools and Technologies Used
 
@@ -142,12 +147,15 @@ This module showcases the application of best practices in engineering for real-
 - Infrastructure as Code (Terraform)
 - CI/CD with GitHub Actions
 
+---
+
 Each folder includes:
 - Source code
 - Notebooks
 - `requirements.txt`, `Pipfile` and environment setup instructions in `README.md`
 - A detailed `README.md` within each module contained code parts explaination, screenshoots etc. as well. 
 
+---
 
 ## 🚀 How to Use This Repository
 - clone the repository and follow each section/module having a  seperate `readme.md` file.
