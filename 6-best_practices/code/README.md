@@ -7,13 +7,15 @@ We will progressively enhance the system by implementing each best practice step
 
 ### ✅ Tasks Covered
 
-- Unit Testing and Dockerizing the Streaming Module
-- Integration Testing
-- Code Quality: Linting and formatting
-- Git Pre-commit Hooks
-- Workflow Automation with Makefiles
-- Infrastructure as Code (IaC) using Terraform
-- CI/CD Pipeline Setup
+- [Unit Testing and Dockerizing the Streaming Module](#-unit-testing-and-dockerizing-the-streaming-module)
+- [Integration Testing](#-integration-testing-for-model-streaming-service)
+  - [Integration testing with LocalStack Kinesis Streams](#integration-test-with-kinesis-testing-cloud-services-with-localstack)
+- [Code Quality: Linting and formatting](#code-quality)
+- [Git Pre-commit Hooks](#git-hooks)
+- [Workflow Automation with Makefiles](#make-makefiles)
+- [Infrastructure as Code (IaC) using Terraform](#iac)
+- [CI/CD Pipeline Setup](#cicd)
+
 
 > **Note**: The code is committed after completing each task to ensure incremental progress and traceability. Final changes will reflect a clean and production-ready implementation.
 
@@ -300,7 +302,7 @@ All components — model, environment variables, container, and Kinesis — are 
 
 
 ---
-
+<a name="code-quality"></a>
 ## 🚀 Code Quality: Linting and Formatting
 
 To maintain clean, consistent, and production-ready Python code, here I have adopted best practices around **linting** and **formatting**.
@@ -433,7 +435,7 @@ By combining linting, formatting, and testing, we ensure our code is not just wo
 🔗 [Read full guide on linting and formatting →](https://github.com/MuhammadShifa/mlops-zoomcamp2025/blob/main/06-best-practices/code/linting_and_formatting.md)
 
 ---
-
+<a name="git-hooks"></a>
 ## 🚀 Git Pre-commit Hooks
 
 Git supports **hooks**, which are scripts that run automatically at certain points in the Git workflow. The **pre-commit** hook runs before `git commit` is finalized. These can:
@@ -564,7 +566,7 @@ Then reinitialize as needed.
 🔗 [Read full guide on pre-commit hooks →](https://github.com/MuhammadShifa/mlops-zoomcamp2025/blob/main/06-best-practices/code/pre_commit_hooks.md)
 
 ---
-
+<a name="make-makefiles"></a>
 ## 🚀 Makefiles and make
 To automate repetitive tasks like testing, linting, building Docker images, running integration tests, and publishing, we use **Makefiles** with the `make` tool.
 In the previous module we have perfored unit and integration testing, code linting and formating and and pre-commit hooks, Now it’s time to automate all these tasks with one powerful tool: **`make` and Makefiles**.
@@ -725,7 +727,7 @@ make publish
 Happy Automating! 🚀
 
 ---
-
+<a name="iac"></a>
 ## 🚀 Infrastructure as a Code with Terraform
 
 To provision and manage cloud resources like Kinesis, S3, Lambda, ECR, and IAM, we use **Terraform** — an Infrastructure as Code (IaC) tool.
@@ -742,6 +744,7 @@ With just a few commands, we can:
 🔗 [Read full guide on Terraform and cloud infrastructure setup →](./infrastructure/README.md)
 
 ---
+<a name="cicd"></a>
 ## 🚀 CI/CD Pipeline
 
 This project includes a fully automated **CI/CD pipeline** using **GitHub Actions**, covering:
