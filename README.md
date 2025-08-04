@@ -48,15 +48,18 @@ Our goal:
 
 ## 🛠 Tools and Technologies Used
 
-| Category                  | Tools Used                                        |
+| **Category**              |     **Tools Used**                                |
 |---------------------------|---------------------------------------------------|
-| Cloud                     | AWS (EC2, S3, Kinesis,lambda function, PostgreSQL)|
+| Cloud                     | AW, LocalStack                                    |
+| AWS Services              | EC2, S3, Kinesis, Lambda Function, PostgreSQL,ECR | 
 | Experiment Tracking       | MLflow                                            |
 | Workflow Orchestration    | Prefect                                           |
 | Containerization          | Docker, Docker Compose                            |
-| Model Deployment          | Flask, Docker, MLflow, AWS and localstack        |
+| Model Deployment          | Flask, Docker, MLflow, AWS and localstack         |
 | Model Monitoring          | Evidently AI, PostgreSQL, Grafana                 |
-| Best Practices            | Linting, Testing, Pre-commit, Makefile, CI/CD     |
+| Best Practices            | Linting, Testing, Pre-commit, Makefile            |
+| IaC                       | Terraform                                         |
+| CI/CD                     | GitHub Action                                     |
 
 ---
 
